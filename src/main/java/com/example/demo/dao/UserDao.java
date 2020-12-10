@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserDao {
-    int newUser(UUID id , User user);
+    boolean newUser(UUID id , User user);
 
     default int newUser(User user) {
         UUID id = UUID.randomUUID();

@@ -29,9 +29,15 @@ public class UserDataAccessService implements UserDao {
         });
     }
 
+
+
     @Override
-    public int newUser(UUID id, User person) {
-        System.out.println("new user insert");
-        return 1;
+    public boolean newUser(UUID id, User U) {
+        String sql = "insert into users (id,account,password,email,name) values (?,?,?,?,?)";
+        String account = U.getAccount();
+        String password = U.getPassword();
+        String email = U.getEimal();
+        String userName = U.getName();
+        return jdbcTemplate.update(sql,id,account,password,email,userName) >0 ;
     }
 }

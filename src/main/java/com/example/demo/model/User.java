@@ -14,12 +14,12 @@ public class User {
             @JsonProperty("id") UUID id,
             @JsonProperty("account") String account,
             @JsonProperty("password") String password,
-            @JsonProperty("email") String eimal ,
+            @JsonProperty("email") String email ,
             @JsonProperty("name") String name) {
         this.id = id;
         this.account = account;
         this.password = password;
-        this.email = eimal;
+        this.email = email;
         this.name = name;
     }
 

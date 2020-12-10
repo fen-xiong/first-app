@@ -18,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping
-    public void addNote(@RequestBody User user) {
+    public void newUser(@RequestBody User user) {
         userService.newUser(user);
     }
     @GetMapping
