@@ -4,19 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 
-@Repository("Note")
-public class NoteDataAccessService implements  NoteDao  {
+@Repository("User")
+public class UserDataAccessService implements UserDao {
     private final JdbcTemplate jdbcTemplate;
+
     @Autowired
-    public NoteDataAccessService(JdbcTemplate jdbcTemplate) {
+    public UserDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
     @Override
     public List<User> selectAll() {
         final String sql = "SELECT * FROM users";
@@ -27,17 +26,12 @@ public class NoteDataAccessService implements  NoteDao  {
             String email = resultSet.getString("email");
             String name = resultSet.getString("name");
             return new User(id,account,password,email,name);
-
         });
     }
 
     @Override
-    public int addNote(User user) {
-        return 0;
-    }
-
-    @Override
-    public int addNote(UUID id, User person) {
-        return 0;
+    public int newUser(UUID id, User person) {
+        System.out.println("new user insert");
+        return 1;
     }
 }

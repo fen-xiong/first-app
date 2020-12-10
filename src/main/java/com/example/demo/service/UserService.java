@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.NoteDao;
+import com.example.demo.dao.UserDao;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class NoteService {
-    private final NoteDao noteDay;
+public class UserService {
+    private final UserDao userdao;
 
     @Autowired
-    public NoteService(@Qualifier("Note") NoteDao noteDay) {
-        this.noteDay = noteDay;
+    public UserService(@Qualifier("User") UserDao userdao) {
+        this.userdao = userdao;
     }
-    public int addNote(User user) {
-        return noteDay.addNote(user);
+    public int newUser(User user) {
+        return userdao.newUser(user);
     }
     public List<User> selectAll() {
-        return noteDay.selectAll();
+        return userdao.selectAll();
     }
 
 }

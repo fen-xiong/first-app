@@ -2,7 +2,7 @@ package com.example.demo.api;
 
 
 import com.example.demo.model.User;
-import com.example.demo.service.NoteService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +10,20 @@ import java.util.List;
 
 @RequestMapping("note/user")
 @RestController
-public class PersonController {
-    private final NoteService noteService;
+public class UserController {
+    private final UserService userService;
 
     @Autowired
-    public PersonController(NoteService noteService) {
-        this.noteService = noteService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
     @PostMapping
     public void addNote(@RequestBody User user) {
-        noteService.addNote(user);
+        userService.newUser(user);
     }
     @GetMapping
     public List<User> selectAll() {
-         return noteService.selectAll();
+         return userService.selectAll();
     }
 
 }

@@ -5,12 +5,12 @@ import com.example.demo.model.User;
 import java.util.List;
 import java.util.UUID;
 
-public interface NoteDao {
-    int addNote(UUID id , User person);
+public interface UserDao {
+    int newUser(UUID id , User user);
 
-    default int addNote(User user) {
+    default int newUser(User user) {
         UUID id = UUID.randomUUID();
-        addNote(id,user);
+        newUser(id,user);
         return 1;
     }
     List<User> selectAll();
