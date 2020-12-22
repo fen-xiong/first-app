@@ -18,12 +18,21 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping
-    public void newUser(@RequestBody User user) {
+    public String newUser(@RequestBody User user) {
         userService.newUser(user);
+        return "success";
     }
     @GetMapping
     public List<User> selectAll() {
          return userService.selectAll();
     }
 
+    @GetMapping(value = "/hasAccount/{account}")
+    public int checkAccount(@PathVariable String account) {
+        return userService.checkAccount(account);
+    }
+    @GetMapping(value = "/hasEmail/{email}")
+    public int checkEmail(@PathVariable String email) {
+        return userService.checkEmail(email);
+    }
 }

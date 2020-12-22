@@ -1,6 +1,6 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/spring_first
+    jdbc-url: jdbc:postgresql://localhost:5432/spring_first?stringtype=unspecified
     username: postgres
     password: note123
     pool-size: 30

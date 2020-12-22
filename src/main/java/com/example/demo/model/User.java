@@ -10,17 +10,23 @@ public class User {
     private String password;
     private String email;
     private String name;
+    private String create_time;
+    private int user_id;
     public User(
             @JsonProperty("id") UUID id,
+            @JsonProperty("create_time") int userid ,
             @JsonProperty("account") String account,
             @JsonProperty("password") String password,
             @JsonProperty("email") String email ,
+            @JsonProperty("create_time") String create_time ,
             @JsonProperty("name") String name) {
         this.id = id;
         this.account = account;
         this.password = password;
         this.email = email;
         this.name = name;
+        this.create_time = create_time;
+        this.user_id = userid;
     }
 
     public UUID getId() {
@@ -35,12 +41,20 @@ public class User {
         return password;
     }
 
-    public String getEimal() {
-        return email;
-    }
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+    public int getUser_id() {
+        return user_id;
     }
 }
 

@@ -22,5 +22,10 @@ public class UserService {
     public List<User> selectAll() {
         return userdao.selectAll();
     }
-
+    public int checkAccount(String account) {
+        return userdao.checkAccount(account);
+    }
+    public int checkEmail(String email) {
+        return userdao.checkEmail(email);
+    }
 }
