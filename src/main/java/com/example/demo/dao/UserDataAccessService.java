@@ -1,24 +1,45 @@
 package com.example.demo.dao;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ArgumentPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCountCallbackHandler;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
+import static java.sql.JDBCType.VARCHAR;
 
 
 @Repository("User")
 public class UserDataAccessService implements UserDao {
     private final JdbcTemplate jdbcTemplate;
 
+
     @Autowired
     public UserDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    @Override
+    public String signIn(String account, String password) {
+        String sql = "SELECT password FROM users WHERE account = ?";
+
+        try{
+            Map<String,Object> result  = jdbcTemplate.queryForMap(sql,new Object[]{account});
+            String dataPassword = (String) result.get("password");
+            if(dataPassword.equals(password)){
+                System.out.println("ok");
+                return null;
+            }
+            System.out.println("password is wrong");
+        }catch (EmptyResultDataAccessException e){
+            System.out.println("not account");
+        }
+        return null;
+    }
+
     @Override
     public List<User> selectAll() {
         final String sql = "SELECT * FROM users";
@@ -68,5 +89,20 @@ public class UserDataAccessService implements UserDao {
         }
         return jdbcTemplate.update(sql,id,account,password,email,userName ,  create_time ) >0 ;
     }
+
+    private String newUserToken(String userId) throws Exception{
+        String tokenRaw = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String tokenA  = "";
+        for (var i = 0 ; i < 16 ; i++){
+            int number = (int)(Math.random()*63);
+            tokenA +=  tokenRaw.substring(number,number + 1);
+        }
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+        int day = c.get(Calendar.DATE);
+        return  tokenA + year + month + day;
+    }
+
 }
 

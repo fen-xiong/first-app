@@ -22,6 +22,11 @@ public class UserController {
         userService.newUser(user);
         return "success";
     }
+    @PostMapping(path = "/signIn")
+    public String signIn(@RequestBody User user) {
+        userService.signIn(user.getAccount(), user.getPassword());
+        return "success";
+    }
     @GetMapping
     public List<User> selectAll() {
          return userService.selectAll();

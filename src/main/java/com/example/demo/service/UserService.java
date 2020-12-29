@@ -28,4 +28,7 @@ public class UserService {
     public int checkEmail(String email) {
         return userdao.checkEmail(email);
     }
+    public String signIn(String account , String password) {
+        return userdao.signIn(account,password);
+    }
 }

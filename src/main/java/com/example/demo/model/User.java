@@ -14,11 +14,11 @@ public class User {
     private int user_id;
     public User(
             @JsonProperty("id") UUID id,
-            @JsonProperty("create_time") int userid ,
+            @JsonProperty("user_id") int userid ,
             @JsonProperty("account") String account,
             @JsonProperty("password") String password,
             @JsonProperty("email") String email ,
-            @JsonProperty("create_time") String create_time ,
+            @JsonProperty("create_time") String create_time,
             @JsonProperty("name") String name) {
         this.id = id;
         this.account = account;

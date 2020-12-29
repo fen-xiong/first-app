@@ -20,4 +20,5 @@ public interface UserDao {
     List<User> selectAll();
     public int checkAccount(String account);
     public int checkEmail(String email);
+    public String signIn(String account ,String password);
 }
