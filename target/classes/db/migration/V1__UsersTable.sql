@@ -1,21 +1,21 @@
 CREATE TABLE users
 (
-    id          UUID PRIMARY KEY,
-    userid      serial UNIQUE,
-    create_time timestamptz  NOT NULL,
-    update_time timestamptz,
-    shadow_time timestamptz,
-    name        VARCHAR(100),
+    user_id     SERIAL PRIMARY KEY,
+    name        VARCHAR(100) UNIQUE,
     password    VARCHAR(100) NOT NULL,
     email       VARCHAR(100) NOT NULL UNIQUE,
-    account     VARCHAR(100) NOT NULL UNIQUE
+    account     VARCHAR(100) NOT NULL UNIQUE,
+    create_at timestamptz    NOT NULL,
+    update_at timestamptz,
+    shadow_at timestamptz
+
 );
 
 CREATE TABLE users_token
 (
     token       VARCHAR(30)   ,
-    user_role   VARCHAR(20)   NOT NULL,
-    userId      serial UNIQUE NOT NULL  REFERENCES users (userid),
-    create_time timestamptz   NOT NULL,
-    update_time timestamptz
+    user_role   VARCHAR(20)    NOT NULL,
+    user_id     SERIAL  UNIQUE NOT NULL  REFERENCES users (user_id),
+    create_at timestamptz    NOT NULL,
+    update_at timestamptz
 );

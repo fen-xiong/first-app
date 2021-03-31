@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -18,25 +19,21 @@ public class configuration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("fen")
-                .password("123456")
-                .roles("ADMIN")
-                .and()
                 .withUser("yi")
                 .password("lin")
                 .roles("USER");
     }
 
-  @Override
+   @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterAt(new TokenAuthenticationFilter(), BasicAuthenticationFilter.class).authorizeRequests()
-                .antMatchers("/note/user").hasRole("ADMIN")
+        http.csrf().disable().addFilterAt(new TokenAuthenticationFilter(), BasicAuthenticationFilter.class).authorizeRequests()
+                .antMatchers("/super/user/**").hasRole("ADMIN")
                 .antMatchers("/").permitAll()
                 .and().formLogin();
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return     PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

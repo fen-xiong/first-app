@@ -1,5 +1,7 @@
 package com.example.demo.security;
 
+
+import com.example.demo.dao.UserDataAccessService;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -12,20 +14,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
+
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+
         String headerToken = request.getHeader("Authorization");
-        headerToken = headerToken.replace("Bearer ","");
         SecurityContext context =   SecurityContextHolder.getContext();
-        if( headerToken != null &&  headerToken.equals("hello")){
-            Authentication authentication = new TestingAuthenticationToken("fen123", "123456", "ROLE_ADMIN");
-            context.setAuthentication(authentication);
+        Authentication authentication;
+        if(headerToken != null){
+             headerToken = headerToken.replace("Bearer ","") ;
+             String role =  UserDataAccessService.getUserRole(headerToken);
+             role = role != null ? role : "ROLE_NULL";
+             authentication = new TestingAuthenticationToken("fe34", "12", role);
         }else{
-            Authentication authentication = new TestingAuthenticationToken("fe34", "12", "ROLE_NULL");
-            context.setAuthentication(authentication);
+            authentication = new TestingAuthenticationToken("fe34", "12", "ROLE_NULL");
         }
+
+
+        context.setAuthentication(authentication);
         chain.doFilter(request,response);
     }
 }

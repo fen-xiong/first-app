@@ -16,7 +16,8 @@ public class UserService {
     public UserService(@Qualifier("User") UserDao userdao) {
         this.userdao = userdao;
     }
-    public int newUser(User user) {
+
+    public String newUser(User user) {
         return userdao.newUser(user);
     }
     public List<User> selectAll() {
