@@ -1,7 +1,7 @@
 package com.example.demo.security;
 
 
-import com.example.demo.dao.UserDataAccessService;
+import com.example.demo.repository.UserDataAccessService;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -36,6 +36,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 
         context.setAuthentication(authentication);
+        request.setAttribute("user_id",3);
         chain.doFilter(request,response);
     }
 }

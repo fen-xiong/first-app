@@ -22,7 +22,6 @@ public class UserController {
     @PostMapping(path = "/signup")
     public String newUser(@RequestBody User user) throws InterruptedException {
         String r =  userService.newUser(user);
-        Thread.sleep(4000);
         if(r.equals("wrong")){
             return "error";
         }else{

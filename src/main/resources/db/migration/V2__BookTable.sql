@@ -38,3 +38,4 @@ CREATE TABLE book_comment (
                               created_at timestamptz  NOT NULL,
                               updated_at timestamptz
 );
+

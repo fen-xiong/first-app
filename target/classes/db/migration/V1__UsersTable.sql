@@ -13,9 +13,9 @@ CREATE TABLE users
 
 CREATE TABLE users_token
 (
-    token       VARCHAR(30)   ,
+    token       VARCHAR(30)    NOT NULL UNIQUE,
     user_role   VARCHAR(20)    NOT NULL,
-    user_id     SERIAL  UNIQUE NOT NULL  REFERENCES users (user_id),
+    user_id     INT  REFERENCES users (user_id),
     create_at timestamptz    NOT NULL,
     update_at timestamptz
 );

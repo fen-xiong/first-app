@@ -1,5 +1,6 @@
-package com.example.demo.dao;
+package com.example.demo.repository;
 
+import com.example.demo.dao.UserDao;
 import com.example.demo.helper.DateToString;
 import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,7 @@ public class UserDataAccessService implements UserDao, DateToString {
         try {
             String sql = "SELECT user_role FROM users_token WHERE token = ?";
             Map<String, Object> result = jdbcTemplate2.queryForMap(sql, new Object[]{token});
-            String role = (String) result.get("user_role");
-            return role;
-
+            return (String) result.get("user_role");
         } catch (Exception e) {
             return null;
         }
@@ -99,19 +98,20 @@ public class UserDataAccessService implements UserDao, DateToString {
     }
 
     @Override
-    public String newUser(UUID id, String create_time, User U) {
-        String sql = "insert into users (id,account,password,email,name , create_time) values (?,?,?,?,?,?)  RETURNING userid";
+    public String newUser( User U) {
+        String sql = "insert into users (account,password,email,name , create_at ) values (?,?,?,?,?)  RETURNING user_id";
         String account = U.getAccount();
         String password = U.getPassword();
         String email = U.getEmail();
         String userName = U.getName();
+        String create_time = getCurrentTime();
         if (userName == null || userName.equals("")) {
             userName = account;
         }
-        Map<String, Object> result = jdbcTemplate.queryForMap(sql, id, account, password, email, userName, create_time);
+        Map<String, Object> result = jdbcTemplate.queryForMap(sql, account, password, email, userName, create_time);
 
-        Integer mewUserId = (Integer) result.get("userid");
-        String sql2 = "insert into users_token (token,user_role,userId,create_time) values (?,?,?,?)";
+        Integer mewUserId = (Integer) result.get("user_id");
+        String sql2 = "insert into users_token (token,user_role,user_id,create_at) values (?,?,?,?)";
         String currentTime = getCurrentTime();
         String token = newUserToken();
         boolean r =  jdbcTemplate.update(sql2, token, "ROLE_USER", mewUserId, currentTime) > 0;
