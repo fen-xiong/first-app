@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
     private final BookDao Bookdao;
@@ -15,8 +17,8 @@ public class BookService {
         this.Bookdao = Bookdao;
     }
 
-    public String getBookAll() {
-        return Bookdao.getBookAll();
+    public List<Category> getUsersBooks() {
+        return Bookdao.getUsersBooks();
     }
 
     public int newCategory(Category C) {
@@ -24,5 +26,8 @@ public class BookService {
     }
     public int deleteCategory(int id) {
         return Bookdao.deleteCategory(id);
+    }
+    public int editCategory(String name ,int id) {
+        return Bookdao.editCategory(name , id);
     }
 }

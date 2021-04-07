@@ -36,7 +36,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 
         context.setAuthentication(authentication);
-        request.setAttribute("user_id",3);
+        request.setAttribute("user_id",1);
         chain.doFilter(request,response);
     }
 }
